@@ -1,0 +1,4203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Mains 2026 Preparation Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        /* MOTIVATION QUOTE */
+        .motivation-quote {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .motivation-quote p {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: white;
+            border-bottom: 1px solid #e5e5ea;
+        }
+
+        .stat-item {
+            padding: 25px;
+            text-align: center;
+            border-right: 1px solid #e5e5ea;
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007AFF;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            font-weight: 500;
+        }
+
+        .navigation {
+            display: flex;
+            background: #f2f2f7;
+            border-bottom: 1px solid #e5e5ea;
+            overflow-x: auto;
+        }
+
+        .nav-button {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            color: #8e8e93;
+            position: relative;
+        }
+
+        .nav-button.active {
+            color: #007AFF;
+            background: white;
+        }
+
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #007AFF;
+        }
+
+        .content {
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .subject-section {
+            display: none;
+        }
+
+        .subject-section.active {
+            display: block;
+        }
+
+        .category-group {
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+            color: white;
+            padding: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-progress {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .chapter-list {
+            padding: 0;
+        }
+
+        .chapter-item {
+            display: grid;
+            grid-template-columns: 2fr auto auto auto auto auto 120px 1fr;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f2f2f7;
+            transition: background-color 0.2s ease;
+            gap: 15px;
+        }
+
+        .chapter-item:hover {
+            background: #f9f9f9;
+        }
+
+        .chapter-item:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-name {
+            font-weight: 500;
+            color: #1c1c1e;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            padding: 5px 0;
+        }
+
+        .chapter-name:hover {
+            color: #007AFF;
+            text-decoration: underline;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+
+        .status-select:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .checkbox-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            appearance: none;
+            border: 2px solid #c7c7cc;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .checkbox:checked {
+            background: #007AFF;
+            border-color: #007AFF;
+        }
+
+        .checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkbox-label {
+            font-size: 0.7rem;
+            color: #8e8e93;
+            font-weight: 500;
+        }
+
+        .notes-input {
+            padding: 8px 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .notes-input:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1rem;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e5ea;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007AFF, #5856D6);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #f2f2f7;
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .progress-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .progress-card h3 {
+            color: #007AFF;
+            margin-bottom: 10px;
+        }
+
+        .progress-card p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #8e8e93;
+        }
+
+        /* ENHANCED DASHBOARD */
+        .overall-progress-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .overall-progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .overall-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #34C759, #30D158);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+        }
+
+        .progress-text {
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .subject-stats {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .stat-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .stat-badge.completed { background: #34C759; color: white; }
+        .stat-badge.in-progress { background: #FF9500; color: white; }
+        .stat-badge.not-started { background: #8e8e93; color: white; }
+
+        .analytics-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .analytics-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .big-stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007AFF;
+            margin-bottom: 5px;
+        }
+
+        /* UPCOMING EXAMS SECTION */
+        .upcoming-exams-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .upcoming-exam-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #FF9500;
+            transition: all 0.3s ease;
+        }
+
+        .upcoming-exam-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .upcoming-exam-card.jee-main {
+            border-left-color: #007AFF;
+        }
+
+        .upcoming-exam-card.jee-advanced {
+            border-left-color: #FF3B30;
+        }
+
+        .upcoming-exam-card.mock-test {
+            border-left-color: #34C759;
+        }
+
+        .exam-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .exam-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1c1c1e;
+        }
+
+        .exam-date {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            font-weight: 500;
+        }
+
+        .exam-progress {
+            margin-top: 10px;
+        }
+
+        .exam-progress-text {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            margin-bottom: 5px;
+        }
+
+        .exam-progress-bar {
+            height: 6px;
+            background: #e5e5ea;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .exam-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #34C759, #30D158);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* CALENDAR STYLES */
+        .calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .month-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .month-nav button {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: #007AFF;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .month-nav button:hover {
+            background: #0056CC;
+            transform: scale(1.1);
+        }
+
+        .current-month {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1c1c1e;
+        }
+
+        .add-exam-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #34C759, #30D158);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-exam-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(52, 199, 89, 0.3);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e5e5ea;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .day-header {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: #8e8e93;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            background: white;
+            min-height: 120px;
+            padding: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-day:hover {
+            background: #f8f9fa;
+        }
+
+        .calendar-day.other-month {
+            background: #f8f9fa;
+            color: #c7c7cc;
+        }
+
+        .calendar-day.today {
+            background: rgba(0, 122, 255, 0.1);
+            border: 2px solid #007AFF;
+        }
+
+        .calendar-day.has-exam {
+            background: rgba(255, 149, 0, 0.1);
+            border-left: 4px solid #FF9500;
+        }
+
+        .day-number {
+            font-weight: 600;
+            color: #1c1c1e;
+            margin-bottom: 5px;
+        }
+
+        .exam-indicator {
+            background: #FF9500;
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+
+        .exam-indicator.jee-main { background: #007AFF; }
+        .exam-indicator.jee-advanced { background: #FF3B30; }
+        .exam-indicator.mock-test { background: #34C759; }
+
+        /* EXAM DETAIL POPUP */
+        .exam-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .exam-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .exam-popup {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+        }
+
+        .exam-popup-overlay.active .exam-popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .exam-popup-header {
+            background: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%);
+            color: white;
+            padding: 25px;
+            position: relative;
+        }
+
+        .exam-popup-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .exam-popup-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .exam-popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exam-popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .exam-popup-content {
+            padding: 30px;
+        }
+
+        .exam-detail-section {
+            margin-bottom: 25px;
+        }
+
+        .exam-detail-section h3 {
+            color: #1c1c1e;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .exam-form-group {
+            margin-bottom: 20px;
+        }
+
+        .exam-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1c1c1e;
+        }
+
+        .exam-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .exam-input:focus {
+            outline: none;
+            border-color: #FF9500;
+            box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.1);
+        }
+
+        .exam-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .exam-type-option {
+            padding: 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .exam-type-option.selected {
+            border-color: #FF9500;
+            background: rgba(255, 149, 0, 0.1);
+            color: #FF9500;
+            font-weight: 600;
+        }
+
+        .chapter-tracker-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .chapter-search {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .subject-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .subject-tab {
+            padding: 8px 16px;
+            border: none;
+            background: #e5e5ea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .subject-tab.active {
+            background: #FF9500;
+            color: white;
+        }
+
+        .chapter-selection-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e5e5ea;
+            border-radius: 10px;
+            background: white;
+            margin-bottom: 15px;
+        }
+
+        .chapter-selection-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f2f2f7;
+            transition: background 0.2s ease;
+        }
+
+        .chapter-selection-item:hover {
+            background: #f8f9fa;
+        }
+
+        .chapter-selection-item:last-child {
+            border-bottom: none;
+        }
+
+        .chapter-checkbox {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+
+        .selected-chapters {
+            margin-top: 15px;
+        }
+
+        .selected-chapter-tag {
+            display: inline-block;
+            background: #FF9500;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 3px;
+            position: relative;
+        }
+
+        .selected-chapter-tag .remove-chapter {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* MANUAL CHAPTER INPUT */
+        .manual-chapter-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e5e5ea;
+        }
+
+        .manual-chapter-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e5ea;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .add-manual-chapter-btn {
+            padding: 8px 16px;
+            background: #34C759;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .exam-popup-actions {
+            padding: 20px 30px;
+            border-top: 1px solid #f2f2f7;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .popup-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-btn.primary {
+            background: #FF9500;
+            color: white;
+        }
+
+        .popup-btn.primary:hover {
+            background: #E6850E;
+            transform: translateY(-2px);
+        }
+
+        .popup-btn.secondary {
+            background: #f2f2f7;
+            color: #1c1c1e;
+        }
+
+        .popup-btn.secondary:hover {
+            background: #e5e5ea;
+        }
+
+        .popup-btn.danger {
+            background: #FF3B30;
+            color: white;
+        }
+
+        .popup-btn.danger:hover {
+            background: #D70015;
+        }
+
+        /* DATE PICKER INTEGRATION */
+        .date-input-container {
+            position: relative;
+        }
+
+        .date-integration-popup {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #007AFF;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+            margin-top: 5px;
+        }
+
+        .integration-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .integration-option:hover {
+            background: #f8f9fa;
+        }
+
+        .integration-checkbox {
+            margin-right: 10px;
+        }
+
+        .integration-exam-info {
+            font-size: 0.9rem;
+            color: #8e8e93;
+            margin-left: 25px;
+            margin-top: 5px;
+        }
+
+        /* CHAPTER DETAIL POPUP */
+        .chapter-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chapter-popup {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s ease;
+        }
+
+        .chapter-popup-overlay.active .chapter-popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .chapter-popup-header {
+            background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+            color: white;
+            padding: 25px;
+            position: relative;
+        }
+
+        .chapter-popup-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .chapter-popup-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .chapter-popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-popup-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .chapter-popup-content {
+            padding: 30px;
+        }
+
+        .chapter-detail-section {
+            margin-bottom: 25px;
+        }
+
+        .chapter-detail-section h3 {
+            color: #1c1c1e;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .chapter-status-selector {
+            margin-bottom: 20px;
+        }
+
+        .status-option {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            margin: 8px 0;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .status-option:hover {
+            background: #f8f9fa;
+        }
+
+        .status-option.selected {
+            border-color: #007AFF;
+            background: rgba(0, 122, 255, 0.05);
+        }
+
+        .status-option input[type="radio"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .chapter-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checkbox-group:hover {
+            background: #f8f9fa;
+        }
+
+        .checkbox-group.checked {
+            border-color: #34C759;
+            background: rgba(52, 199, 89, 0.05);
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .checkbox-group label {
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .chapter-date-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-date-input:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .chapter-notes-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #e5e5ea;
+            border-radius: 12px;
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-notes-textarea:focus {
+            outline: none;
+            border-color: #007AFF;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .chapter-popup-actions {
+            padding: 20px 30px;
+            border-top: 1px solid #f2f2f7;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        /* POMODORO STYLES */
+        .pomodoro-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .timer-circle {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .timer-svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .timer-bg {
+            fill: none;
+            stroke: #e5e5ea;
+            stroke-width: 8;
+        }
+
+        .timer-progress {
+            fill: none;
+            stroke: #007AFF;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 565.48;
+            stroke-dashoffset: 565.48;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .timer-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .timer-time {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1c1c1e;
+            margin-bottom: 10px;
+        }
+
+        .timer-session {
+            font-size: 1.2rem;
+            color: #8e8e93;
+            font-weight: 500;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .timer-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 110px;
+        }
+
+        .timer-btn.primary { background: #007AFF; color: white; }
+        .timer-btn.secondary { background: #f2f2f7; color: #1c1c1e; }
+        .timer-btn.tertiary { background: #FF9500; color: white; }
+        .timer-btn.danger { background: #FF3B30; color: white; }
+
+        .timer-settings {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .setting-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .session-counter {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .session-dots {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .session-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e5e5ea;
+            transition: all 0.3s ease;
+        }
+
+        .session-dot.active { background: #007AFF; }
+        .session-dot.completed { background: #34C759; }
+
+        .pomodoro-stats {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .stat-item-small { text-align: center; }
+        .stat-item-small .stat-number {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #007AFF;
+        }
+
+        .stat-label-small {
+            font-size: 0.9rem;
+            color: #8e8e93;
+        }
+/* SCHEDULED CHAPTERS STYLES */
+.schedule-filter-btn {
+    padding: 10px 20px;
+    border: 2px solid #e5e5ea;
+    border-radius: 20px;
+    background: white;
+    color: #1c1c1e;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+        max-height: 200px;
+        margin-bottom: 0;
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(50px);
+        max-height: 0;
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.scheduled-chapter-card.fade-out {
+    animation: fadeOut 0.8s ease-out forwards;
+    pointer-events: none;
+}
+
+.scheduled-date-group.fade-out {
+    animation: fadeOut 0.6s ease-out forwards;
+}
+/* NOTE POPUP */
+.note-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.note-popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.note-popup-content {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    max-height: 70vh;
+    overflow-y: auto;
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.3s ease;
+}
+
+.note-popup-overlay.active .note-popup-content {
+    transform: scale(1) translateY(0);
+}
+
+.note-popup-header {
+    background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+    color: white;
+    padding: 25px;
+    position: relative;
+    border-radius: 20px 20px 0 0;
+}
+
+.note-popup-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.note-popup-header p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.note-popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.note-popup-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.note-popup-body {
+    padding: 30px;
+}
+
+.note-content {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #007AFF;
+    line-height: 1.6;
+    color: #1c1c1e;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1rem;
+}
+
+.note-empty {
+    text-align: center;
+    color: #8e8e93;
+    font-style: italic;
+    padding: 20px;
+}
+.schedule-filter-btn:hover {
+    background: #f2f2f7;
+    transform: translateY(-2px);
+}
+
+.schedule-filter-btn.active {
+    background: #007AFF;
+    color: white;
+    border-color: #007AFF;
+}
+
+.scheduled-date-group {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    overflow: hidden;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scheduled-date-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.scheduled-date-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-30px, -30px); }
+}
+
+.scheduled-date-header.today {
+    background: linear-gradient(135deg, #FF9500 0%, #FF6B00 100%);
+}
+
+.scheduled-date-header.overdue {
+    background: linear-gradient(135deg, #FF3B30 0%, #D70015 100%);
+}
+
+.date-header-left {
+    position: relative;
+    z-index: 1;
+}
+
+.date-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.date-meta {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.date-header-right {
+    position: relative;
+    z-index: 1;
+    text-align: right;
+}
+
+.chapter-count-badge {
+    background: rgba(255,255,255,0.3);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.scheduled-chapters-list {
+    padding: 0;
+}
+
+.scheduled-chapter-card {
+    display: flex;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f2f2f7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.scheduled-chapter-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #007AFF;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.scheduled-chapter-card:hover {
+    background: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.scheduled-chapter-card:hover::before {
+    transform: scaleY(1);
+}
+
+.scheduled-chapter-card:last-child {
+    border-bottom: none;
+}
+
+.chapter-status-indicator {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-right: 20px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.scheduled-chapter-card:hover .chapter-status-indicator {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.status-not-started {
+    background: rgba(142, 142, 147, 0.1);
+    border: 2px solid #8e8e93;
+}
+
+.status-in-progress {
+    background: rgba(255, 149, 0, 0.1);
+    border: 2px solid #FF9500;
+}
+
+.status-completed {
+    background: rgba(52, 199, 89, 0.1);
+    border: 2px solid #34C759;
+}
+
+.chapter-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.chapter-name-scheduled {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1c1c1e;
+    margin-bottom: 5px;
+}
+
+.chapter-meta {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    background: #f2f2f7;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: #8e8e93;
+    font-weight: 500;
+}
+
+.chapter-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background: #f2f2f7;
+    color: #1c1c1e;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    background: #007AFF;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.progress-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.mini-badge {
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-learned {
+    background: rgba(0, 122, 255, 0.1);
+    color: #007AFF;
+}
+
+.badge-revised {
+    background: rgba(255, 149, 0, 0.1);
+    color: #FF9500;
+}
+
+.badge-tested {
+    background: rgba(52, 199, 89, 0.1);
+    color: #34C759;
+}
+
+.time-until {
+    font-size: 0.9rem;
+    color: #8e8e93;
+    margin-top: 3px;
+}
+
+.overdue-badge {
+    background: rgba(255, 59, 48, 0.1);
+    color: #FF3B30;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+        /* RESET BUTTON */
+        .reset-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .reset-btn {
+            padding: 10px 20px;
+            background: #FF3B30;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: #D70015;
+            transform: translateY(-1px);
+        }
+
+        /* FULLSCREEN POMODORO */
+        .pomodoro-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hidden { display: none !important; }
+
+        .fullscreen-exit-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fullscreen-timer {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin-bottom: 40px;
+        }
+
+        .fullscreen-time {
+            font-size: 5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .fullscreen-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #007AFF;
+            color: white;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .chapter-item {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chapter-checkboxes {
+                grid-template-columns: 1fr;
+            }
+
+            .chapter-popup, .exam-popup {
+                width: 95%;
+                max-height: 90vh;
+            }
+
+            .calendar-grid {
+                font-size: 0.9rem;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+                padding: 4px;
+            }
+
+            .exam-type-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 JEE Mains 2026 Tracker</h1>
+            <p>Track your preparation journey systematically</p>
+            <div class="motivation-quote">
+                <p id="motivationText">💪 "YOU HAVE TO GET 99 PERCENTILE AARAV!!"</p>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number" id="totalChapters">99</div>
+                <div class="stat-label">Total Chapters</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="completedChapters">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="overallProgress">0%</div>
+                <div class="stat-label">Progress</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" id="needRevision">0</div>
+                <div class="stat-label">Need Revision</div>
+            </div>
+        </div>
+
+      <div class="navigation">
+    <button class="nav-button active" data-subject="dashboard">📊 Dashboard</button>
+    <button class="nav-button" data-subject="mathematics">📐 Mathematics</button>
+    <button class="nav-button" data-subject="chemistry">⚗️ Chemistry</button>
+    <button class="nav-button" data-subject="physics">⚡ Physics</button>
+    <button class="nav-button" data-subject="scheduled">📅 Scheduled</button>
+    <button class="nav-button" data-subject="calendar">🗓️ Calendar</button>
+    <button class="nav-button" data-subject="pomodoro">🍅 Pomodoro</button>
+</div>
+
+        <div class="content">
+            <div id="dashboard" class="subject-section active">
+                <h2 style="margin-bottom: 20px; color: #1c1c1e;">📊 Overall Progress</h2>
+                
+                <!-- Enhanced Overall Progress -->
+                <div class="overall-progress-section">
+                    <h3 style="color:#007AFF; margin-bottom:15px;">🎯 Complete JEE Syllabus Progress</h3>
+                    <div style="text-align: center;">
+                        <div class="overall-progress-bar">
+                            <div class="overall-progress-fill" id="overallProgressBar" style="width:0%;">
+                                <span class="progress-text" id="progressText">0%</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 1.1rem; color: #8e8e93;">
+                            <span id="completedCount">0</span> / <span id="totalCount">99</span> chapters completed
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Exams Section -->
+                <div class="upcoming-exams-section">
+                    <h3 style="color:#007AFF; margin-bottom:15px;">📅 Upcoming Exams (Next 7 Days)</h3>
+                    <div id="upcomingExamsList">
+                        <div style="text-align: center; color: #8e8e93; padding: 20px;">
+                            No upcoming exams in the next 7 days
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="progress-card">
+                        <h3>📐 Mathematics</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="mathProgress" style="width: 0%;"></div>
+                        </div>
+                        <p>31 chapters total</p>
+                        <div class="subject-stats">
+                            <span class="stat-badge completed" id="mathCompleted">0</span>
+                            <span class="stat-badge in-progress" id="mathInProgress">0</span>
+                            <span class="stat-badge not-started" id="mathNotStarted">31</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-card">
+                        <h3>⚗️ Chemistry</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="chemProgress" style="width: 0%;"></div>
+                        </div>
+                        <p>34 chapters total</p>
+                        <div class="subject-stats">
+                            <span class="stat-badge completed" id="chemCompleted">0</span>
+                            <span class="stat-badge in-progress" id="chemInProgress">0</span>
+                            <span class="stat-badge not-started" id="chemNotStarted">34</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-card">
+                        <h3>⚡ Physics</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="physProgress" style="width: 0%;"></div>
+                        </div>
+                        <p>34 chapters total</p>
+                        <div class="subject-stats">
+                            <span class="stat-badge completed" id="physCompleted">0</span>
+                            <span class="stat-badge in-progress" id="physInProgress">0</span>
+                            <span class="stat-badge not-started" id="physNotStarted">34</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Analytics -->
+                <div class="analytics-section">
+                    <h3 style="color:#007AFF; margin-bottom:15px;">📈 Study Analytics</h3>
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h4>🍅 Pomodoro Sessions</h4>
+                            <div class="big-stat" id="totalPomodoros">0</div>
+                            <p>Total sessions completed</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>⏱️ Focus Time</h4>
+                            <div class="big-stat" id="totalFocusTime">0h 0m</div>
+                            <p>Time spent studying</p>
+                        </div>
+                        <div class="analytics-card">
+                            <h4>🔥 Study Streak</h4>
+                            <div class="big-stat" id="studyStreak">0</div>
+                            <p>Days of consistent study</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item"><div class="legend-dot" style="background:#8e8e93;"></div><span>○ Not Started</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#FF9500;"></div><span>◐ In Progress</span></div>
+                    <div class="legend-item"><div class="legend-dot" style="background:#34C759;"></div><span>✓ Completed</span></div>
+                    <div class="legend-item"><span><strong>L</strong> = Learned</span></div>
+                    <div class="legend-item"><span><strong>R</strong> = Revised</span></div>
+                    <div class="legend-item"><span><strong>T</strong> = Tested</span></div>
+                </div>
+            </div>
+
+            <!-- Mathematics -->
+            <div id="mathematics" class="subject-section">
+                <input type="text" class="search-bar" placeholder="🔍 Search chapters in Mathematics..." oninput="searchChapters('mathematics', this.value)" />
+                
+                <!-- Algebra -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Algebra</span>
+                        <span class="category-progress" id="mathematics_Algebra_progress">0/7 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Algebra"></div>
+                </div>
+                
+                <!-- Calculus -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Calculus</span>
+                        <span class="category-progress" id="mathematics_Calculus_progress">0/9 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Calculus"></div>
+                </div>
+                
+                <!-- Coordinate Geometry -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Coordinate Geometry</span>
+                        <span class="category-progress" id="mathematics_Coordinate_Geometry_progress">0/5 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Coordinate_Geometry"></div>
+                </div>
+                
+                <!-- Trigonometry -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Trigonometry</span>
+                        <span class="category-progress" id="mathematics_Trigonometry_progress">0/5 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Trigonometry"></div>
+                </div>
+                
+                <!-- Vector & 3D -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Vector & 3D</span>
+                        <span class="category-progress" id="mathematics_Vector_and_3D_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Vector_and_3D"></div>
+                </div>
+                
+                <!-- Statistics & Probability -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Statistics & Probability</span>
+                        <span class="category-progress" id="mathematics_Statistics_and_Probability_progress">0/3 completed</span>
+                    </div>
+                    <div class="chapter-list" id="mathematics_Statistics_and_Probability"></div>
+                </div>
+            </div>
+
+            <!-- Chemistry -->
+            <div id="chemistry" class="subject-section">
+                <input type="text" class="search-bar" placeholder="🔍 Search chapters in Chemistry..." oninput="searchChapters('chemistry', this.value)" />
+                
+                <!-- Physical Chemistry -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Physical Chemistry</span>
+                        <span class="category-progress" id="chemistry_Physical_Chemistry_progress">0/11 completed</span>
+                    </div>
+                    <div class="chapter-list" id="chemistry_Physical_Chemistry"></div>
+                </div>
+                
+                <!-- Inorganic Chemistry -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Inorganic Chemistry</span>
+                        <span class="category-progress" id="chemistry_Inorganic_Chemistry_progress">0/8 completed</span>
+                    </div>
+                    <div class="chapter-list" id="chemistry_Inorganic_Chemistry"></div>
+                </div>
+                
+                <!-- Organic Chemistry -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Organic Chemistry</span>
+                        <span class="category-progress" id="chemistry_Organic_Chemistry_progress">0/13 completed</span>
+                    </div>
+                    <div class="chapter-list" id="chemistry_Organic_Chemistry"></div>
+                </div>
+                
+                <!-- Miscellaneous -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Miscellaneous</span>
+                        <span class="category-progress" id="chemistry_Miscellaneous_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="chemistry_Miscellaneous"></div>
+                </div>
+            </div>
+
+            <!-- Physics -->
+            <div id="physics" class="subject-section">
+                <input type="text" class="search-bar" placeholder="🔍 Search chapters in Physics..." oninput="searchChapters('physics', this.value)" />
+                
+                <!-- Mechanics -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Mechanics</span>
+                        <span class="category-progress" id="physics_Mechanics_progress">0/11 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Mechanics"></div>
+                </div>
+                
+                <!-- Thermodynamics -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Thermodynamics</span>
+                        <span class="category-progress" id="physics_Thermodynamics_progress">0/4 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Thermodynamics"></div>
+                </div>
+                
+                <!-- Waves & Oscillations -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Waves & Oscillations</span>
+                        <span class="category-progress" id="physics_Waves_and_Oscillations_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Waves_and_Oscillations"></div>
+                </div>
+                
+                <!-- Electromagnetism -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Electromagnetism</span>
+                        <span class="category-progress" id="physics_Electromagnetism_progress">0/7 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Electromagnetism"></div>
+                </div>
+                
+                <!-- Optics -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Optics</span>
+                        <span class="category-progress" id="physics_Optics_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Optics"></div>
+                </div>
+                
+                <!-- Modern Physics -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Modern Physics</span>
+                        <span class="category-progress" id="physics_Modern_Physics_progress">0/4 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Modern_Physics"></div>
+                </div>
+                
+                <!-- Electronics & Communication -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Electronics & Communication</span>
+                        <span class="category-progress" id="physics_Electronics_and_Communication_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Electronics_and_Communication"></div>
+                </div>
+                
+                <!-- Miscellaneous -->
+                <div class="category-group">
+                    <div class="category-header">
+                        <span>Miscellaneous</span>
+                        <span class="category-progress" id="physics_Miscellaneous_progress">0/2 completed</span>
+                    </div>
+                    <div class="chapter-list" id="physics_Miscellaneous"></div>
+                </div>
+            </div>
+<!-- SCHEDULED CHAPTERS SECTION -->
+<div id="scheduled" class="subject-section">
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <h2 style="margin-bottom: 30px; color: #1c1c1e; text-align: center;">📅 Scheduled Chapters</h2>
+        
+        <!-- Filter Options -->
+        <div style="background: white; padding: 20px; border-radius: 15px; box-shadow: 0 2px 20px rgba(0,0,0,0.08); margin-bottom: 30px;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; align-items: center;">
+                <button class="schedule-filter-btn active" onclick="filterSchedule('all')">All Scheduled</button>
+                <button class="schedule-filter-btn" onclick="filterSchedule('today')">Today</button>
+                <button class="schedule-filter-btn" onclick="filterSchedule('tomorrow')">Tomorrow</button>
+                <button class="schedule-filter-btn" onclick="filterSchedule('week')">This Week</button>
+                <button class="schedule-filter-btn" onclick="filterSchedule('month')">This Month</button>
+                <button class="schedule-filter-btn" onclick="filterSchedule('overdue')">Overdue</button>
+            </div>
+        </div>
+
+        <!-- Scheduled Chapters Timeline -->
+        <div id="scheduledChaptersContainer">
+            <!-- Chapters will be populated here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyScheduleState" style="text-align: center; padding: 60px 20px; color: #8e8e93; display: none;">
+            <div style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;">📅</div>
+            <h3 style="color: #1c1c1e; margin-bottom: 10px;">No Scheduled Chapters</h3>
+            <p>Start scheduling your study sessions by setting dates for chapters!</p>
+        </div>
+    </div>
+</div>
+            <!-- CALENDAR SECTION -->
+            <div id="calendar" class="subject-section">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="month-nav">
+                            <button onclick="changeMonth(-1)">‹</button>
+                            <div class="current-month" id="currentMonth">October 2025</div>
+                            <button onclick="changeMonth(1)">›</button>
+                        </div>
+                        <button class="add-exam-btn" onclick="openExamPopup()">+ Add Exam</button>
+                    </div>
+
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- POMODORO TIMER SECTION -->
+            <div id="pomodoro" class="subject-section">
+                <div class="pomodoro-container">
+                    <h2 style="margin-bottom:30px; color:#1c1c1e;">🍅 Pomodoro Focus Timer</h2>
+                    
+                    <!-- Timer Display -->
+                    <div style="margin-bottom: 40px;">
+                        <div class="timer-circle">
+                            <svg class="timer-svg" viewBox="0 0 200 200">
+                                <circle class="timer-bg" cx="100" cy="100" r="90"></circle>
+                                <circle class="timer-progress" cx="100" cy="100" r="90" id="timerProgressCircle"></circle>
+                            </svg>
+                            <div class="timer-display">
+                                <div class="timer-time" id="timerDisplay">25:00</div>
+                                <div class="timer-session" id="timerSession">Focus Session</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timer Controls -->
+                    <div class="timer-controls">
+                        <button class="timer-btn primary" id="startBtn" onclick="startTimer()">▶ Start</button>
+                        <button class="timer-btn secondary" id="pauseBtn" onclick="pauseTimer()" style="display:none">⏸ Pause</button>
+                        <button class="timer-btn tertiary" id="resumeBtn" onclick="resumeTimer()" style="display:none">⏵ Resume</button>
+                        <button class="timer-btn secondary" onclick="resetTimer()">↻ Reset</button>
+                        <button class="timer-btn tertiary" onclick="skipSession()">⏭ Skip</button>
+                        <button class="timer-btn secondary" onclick="toggleFullscreen()">🪟 Fullscreen</button>
+                    </div>
+                    
+                    <!-- Settings -->
+                    <div class="timer-settings">
+                        <div class="setting-group">
+                            <label style="font-weight: 600; color: #1c1c1e;">Focus Time:</label>
+                            <select id="focusTime" style="padding: 8px 15px; border: 2px solid #e5e5ea; border-radius: 8px; background: white;">
+                                <option value="25">25 minutes</option>
+                                <option value="30">30 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">1 hour</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label style="font-weight: 600; color: #1c1c1e;">Break Time:</label>
+                            <select id="breakTime" style="padding: 8px 15px; border: 2px solid #e5e5ea; border-radius: 8px; background: white;">
+                                <option value="5">5 minutes</option>
+                                <option value="10">10 minutes</option>
+                                <option value="15">15 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Session Counter -->
+                    <div class="session-counter">
+                        <h4>Session Progress</h4>
+                        <div class="session-dots">
+                            <div class="session-dot" id="session1"></div>
+                            <div class="session-dot" id="session2"></div>
+                            <div class="session-dot" id="session3"></div>
+                            <div class="session-dot" id="session4"></div>
+                        </div>
+                        <p>Complete 4 sessions for a long break!</p>
+                    </div>
+                    
+                    <!-- Today's Stats -->
+                    <div class="pomodoro-stats">
+                        <h4>Today's Progress</h4>
+                        <div class="stats-grid">
+                            <div class="stat-item-small">
+                                <span class="stat-number" id="todayPomodoros">0</span>
+                                <span class="stat-label-small">Sessions</span>
+                            </div>
+                            <div class="stat-item-small">
+                                <span class="stat-number" id="todayFocusTime">0m</span>
+                                <span class="stat-label-small">Focus</span>
+                            </div>
+                            <div class="stat-item-small">
+                                <span class="stat-number" id="todayBreakTime">0m</span>
+                                <span class="stat-label-small">Breaks</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reset Progress Section -->
+                    <div class="reset-section">
+                        <h4 style="margin-bottom: 15px; color: #FF3B30;">⚠️ Danger Zone</h4>
+                        <p style="margin-bottom: 15px; color: #8e8e93; font-size: 0.9rem;">
+                            This will permanently delete all your Pomodoro data and statistics.
+                        </p>
+                        <button class="reset-btn" onclick="resetPomodoroProgress()">
+                            🗑️ Reset All Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAPTER DETAIL POPUP -->
+    <div id="chapterPopupOverlay" class="chapter-popup-overlay">
+        <div class="chapter-popup">
+            <div class="chapter-popup-header">
+                <h2 id="popupChapterName">Chapter Name</h2>
+                <p id="popupChapterCategory">Category</p>
+                <button class="chapter-popup-close" onclick="closeChapterPopup()">✕</button>
+            </div>
+            <div class="chapter-popup-content">
+                <!-- Status Section -->
+                <div class="chapter-detail-section">
+                    <h3>📊 Progress Status</h3>
+                    <div class="chapter-status-selector">
+                        <div class="status-option" onclick="selectStatus('not_started')">
+                            <input type="radio" name="chapterStatus" value="not_started" id="status_not_started">
+                            <label for="status_not_started">○ Not Started</label>
+                        </div>
+                        <div class="status-option" onclick="selectStatus('in_progress')">
+                            <input type="radio" name="chapterStatus" value="in_progress" id="status_in_progress">
+                            <label for="status_in_progress">◐ In Progress</label>
+                        </div>
+                        <div class="status-option" onclick="selectStatus('completed')">
+                            <input type="radio" name="chapterStatus" value="completed" id="status_completed">
+                            <label for="status_completed">✓ Completed</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Checkboxes -->
+                <div class="chapter-detail-section">
+                    <h3>📚 Learning Progress</h3>
+                    <div class="chapter-checkboxes">
+                        <div class="checkbox-group" onclick="toggleCheckbox('learned')">
+                            <input type="checkbox" id="popup_learned">
+                            <label for="popup_learned">📖 Learned</label>
+                        </div>
+                        <div class="checkbox-group" onclick="toggleCheckbox('revised')">
+                            <input type="checkbox" id="popup_revised">
+                            <label for="popup_revised">🔄 Revised</label>
+                        </div>
+                        <div class="checkbox-group" onclick="toggleCheckbox('tested')">
+                            <input type="checkbox" id="popup_tested">
+                            <label for="popup_tested">📝 Tested</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Section with Calendar Integration -->
+                <div class="chapter-detail-section">
+                    <h3>📅 Study Date</h3>
+                    <div class="date-input-container">
+                        <input type="date" class="chapter-date-input" id="popup_date" placeholder="Select study date" onchange="handleDateChange()" onfocus="showDateIntegration()">
+                        <div class="date-integration-popup hidden" id="dateIntegrationPopup">
+                            <div style="margin-bottom: 10px; font-weight: 600; color: #1c1c1e;">Add to exam preparation?</div>
+                            <div id="examIntegrationOptions">
+                                <!-- Exam options will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div class="chapter-detail-section">
+                    <h3>📝 Notes & Comments</h3>
+                    <textarea class="chapter-notes-textarea" id="popup_notes" placeholder="Add your notes, important points, formulas, or any comments about this chapter..."></textarea>
+                </div>
+            </div>
+            <div class="chapter-popup-actions">
+                <button class="popup-btn secondary" onclick="closeChapterPopup()">Cancel</button>
+                <button class="popup-btn primary" onclick="saveChapterData()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXAM DETAIL POPUP -->
+    <div id="examPopupOverlay" class="exam-popup-overlay">
+        <div class="exam-popup">
+            <div class="exam-popup-header">
+                <h2 id="examPopupTitle">Add New Exam</h2>
+                <p id="examPopupSubtitle">Schedule and track your exam preparation</p>
+                <button class="exam-popup-close" onclick="closeExamPopup()">✕</button>
+            </div>
+            <div class="exam-popup-content">
+                <!-- Basic Info Section -->
+                <div class="exam-detail-section">
+                    <h3>📋 Basic Information</h3>
+                    <div class="exam-form-group">
+                        <label for="examName">Exam Name</label>
+                        <input type="text" class="exam-input" id="examName" placeholder="e.g., JEE Main Mock Test 1">
+                    </div>
+                    <div class="exam-form-group">
+                        <label for="examDate">Exam Date</label>
+                        <input type="date" class="exam-input" id="examDate">
+                    </div>
+                    <div class="exam-form-group">
+                        <label for="examTime">Exam Time</label>
+                        <input type="time" class="exam-input" id="examTime" value="09:00">
+                    </div>
+                </div>
+
+                <!-- Exam Type Section -->
+                <div class="exam-detail-section">
+                    <h3>🏷️ Exam Type</h3>
+                    <div class="exam-type-selector">
+                        <div class="exam-type-option" onclick="selectExamType('jee-main')">
+                            <strong>JEE Main</strong><br>
+                            <small>Official JEE Main</small>
+                        </div>
+                        <div class="exam-type-option" onclick="selectExamType('jee-advanced')">
+                            <strong>JEE Advanced</strong><br>
+                            <small>Official JEE Advanced</small>
+                        </div>
+                        <div class="exam-type-option selected" onclick="selectExamType('mock-test')">
+                            <strong>Mock Test</strong><br>
+                            <small>Practice Test</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chapter Selection Section -->
+                <div class="exam-detail-section">
+                    <h3>📚 Chapter Preparation Tracker</h3>
+                    <div class="chapter-tracker-section">
+                        <input type="text" class="chapter-search" id="chapterSearch" placeholder="Search chapters..." oninput="searchExamChapters(this.value)">
+                        
+                        <div class="subject-tabs">
+                            <button class="subject-tab active" onclick="selectSubjectTab('mathematics')">Math</button>
+                            <button class="subject-tab" onclick="selectSubjectTab('chemistry')">Chemistry</button>
+                            <button class="subject-tab" onclick="selectSubjectTab('physics')">Physics</button>
+                        </div>
+
+                        <div class="chapter-selection-list" id="chapterSelectionList">
+                            <!-- Chapters will be populated here -->
+                        </div>
+
+                        <!-- Manual Chapter Input Section -->
+                        <div class="manual-chapter-section">
+                            <h4 style="margin-bottom: 10px; color: #1c1c1e;">➕ Add Custom Chapter</h4>
+                            <input type="text" class="manual-chapter-input" id="manualChapterInput" placeholder="Enter chapter name manually...">
+                            <button class="add-manual-chapter-btn" onclick="addManualChapter()">Add Chapter</button>
+                        </div>
+
+                        <div class="selected-chapters">
+                            <strong>Selected Chapters:</strong>
+                            <div id="selectedChapterTags">
+                                <!-- Selected chapter tags will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-popup-actions">
+                <button class="popup-btn danger" onclick="deleteExam()" id="deleteExamBtn" style="display:none">Delete Exam</button>
+                <button class="popup-btn secondary" onclick="closeExamPopup()">Cancel</button>
+                <button class="popup-btn primary" onclick="saveExam()">Save Exam</button>
+            </div>
+        </div>
+    </div>
+<!-- NOTE POPUP -->
+<div id="notePopupOverlay" class="note-popup-overlay">
+    <div class="note-popup-content">
+        <div class="note-popup-header">
+            <h3 id="notePopupTitle">📝 Chapter Note</h3>
+            <p id="notePopupChapter">Chapter Name</p>
+            <button class="note-popup-close" onclick="closeNotePopup()">✕</button>
+        </div>
+        <div class="note-popup-body">
+            <div class="note-content" id="notePopupContent">
+                <!-- Note content will appear here -->
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- POMODORO FULLSCREEN OVERLAY -->
+    <div id="pomodoroFullscreen" class="pomodoro-fullscreen hidden">
+        <div style="text-align: center; position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <button class="fullscreen-exit-btn" onclick="toggleFullscreen()">✕</button>
+            
+            <div class="fullscreen-timer">
+                <svg style="width: 100%; height: 100%; transform: rotate(-90deg);" viewBox="0 0 300 300">
+                    <circle fill="none" stroke="#404040" stroke-width="8" cx="150" cy="150" r="140"></circle>
+                    <circle fill="none" stroke="#007AFF" stroke-width="8" stroke-linecap="round" stroke-dasharray="879.64" stroke-dashoffset="879.64" cx="150" cy="150" r="140" id="fullscreenProgressCircle" style="transition: stroke-dashoffset 1s linear; filter: drop-shadow(0 0 10px rgba(0, 122, 255, 0.5));"></circle>
+                </svg>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                    <div class="fullscreen-time" id="fullscreenTimerDisplay">25:00</div>
+                    <div style="font-size: 1.5rem; color: #b0b0b0; font-weight: 500;" id="fullscreenTimerSession">Focus Session</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 20px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;">
+                <button class="fullscreen-btn" id="fullscreenPauseBtn" onclick="pauseTimer()" style="display:none">⏸ Pause</button>
+                <button class="fullscreen-btn" id="fullscreenResumeBtn" onclick="resumeTimer()" style="display:none">⏵ Resume</button>
+                <button class="fullscreen-btn" onclick="resetTimer()">↻ Reset</button>
+                <button class="fullscreen-btn" onclick="skipSession()">⏭ Skip</button>
+                <button class="fullscreen-btn" onclick="toggleFullscreen()">🪟 Exit</button>
+            </div>
+            
+            <div style="max-width: 600px; margin-bottom: 30px;">
+                <p id="focusQuote" style="font-size: 1.2rem; color: #b0b0b0; font-style: italic; line-height: 1.6;">"Success is the sum of small efforts repeated day in and day out." - Robert Collier</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chapter data with all subjects
+        const chaptersData = {
+            mathematics: {
+                'Algebra': [
+                    'Matrices And Determinants(12th)',
+                    'Sequence And Series(11th)',
+                    'Complex Numbers(11th)',
+                    'Binomial Theorem(11th)',
+                    'Quadratic Equations(11th)',
+                    'Set Theory And Relations(11th)',
+                    'Permutation And Combination(11th)'
+                ],
+                'Calculus': [
+                    'Functions(12th)',
+                    'Indefinite Integration(12th)',
+                    'Application Of Derivatives(12th)',
+                    'Definite Integration(12th)',
+                    'Differential Equation(12th)',
+                    'Area Under Curves(12th)',
+                    'Limits(11th)',
+                    'Continuity And Differentiability(12th)',
+                    'Differentiation(12th)'
+                ],
+                'Coordinate_Geometry': [
+                    'Straight Line(11th)',
+                    'Circle(11th)',
+                    'Parabola(11th)',
+                    'Hyperbola(11th)',
+                    'Ellipse(11th)'
+                ],
+                'Trigonometry': [
+                    'Trigonometrical Ratios(11th)',
+                    'Heights And Distances(11th)',
+                    'Trigonometrical Equations(11th)',
+                    'Inverse Trigonometric Functions(12th)',
+                    'Solution Of Triangle(12th)'
+                ],
+                'Vector_and_3D': [
+                    'Vector 3D(12th)',
+                    'Vector(12th)'
+                ],
+                'Statistics_and_Probability': [
+                    'Probability(12th)',
+                    'Statistics(11th)',
+                    'Mathematical Reasoning(12th)'
+                ]
+            },
+            chemistry: {
+                'Physical_Chemistry': [
+                    'Atomic Structure(11th)',
+                    'Chemical Bonding(11th)',
+                    'Chemical Thermodynamics(11th)',
+                    'Chemical Equilibrium(11th)',
+                    'Ionic Equilibrium(11th)',
+                    'Chemical Kinetics(12th)',
+                    'Electrochemistry(12th)',
+                    'Solutions(12th)',
+                    'Solid State(11th)',
+                    'Gaseous State(11th)',
+                    'Surface Chemistry(12th)'
+                ],
+                'Inorganic_Chemistry': [
+                    'Periodicity(11th)',
+                    'S Block & Hydrogen(11th)',
+                    'P Block Elements(11th)',
+                    'd and f block elements(12th)',
+                    'Metallurgy(12th)',
+                    'Coordination Compounds(12th)',
+                    'Environmental Chemistry(12th)',
+                    'Qualitative Inorganic Chemistry(12th)'
+                ],
+                'Organic_Chemistry': [
+                    'General Organic Chemistry(11th)',
+                    'Hydrocarbons(11th)',
+                    'Haloalkanes(12th)',
+                    'Haloarenes And Phenols(12th)',
+                    'Alcohols Phenols And Ethers(12th)',
+                    'Aldehydes And Ketones(12th)',
+                    'Carboxylic Acid And Its Derivatives(12th)',
+                    'Amines(12th)',
+                    'Biomolecules(12th)',
+                    'Polymers(12th)',
+                    'Chemistry In Everyday Life(12th)',
+                    'Purification Of Organic Compounds(12th)',
+                    'Aromatic Compounds(12th)'
+                ],
+                'Miscellaneous': [
+                    'Mole Concept(11th)',
+                    'Redox Reactions(11th)'
+                ]
+            },
+            physics: {
+                'Mechanics': [
+                    'Units And Dimensions(11th)',
+                    'Motion In One Dimension(11th)',
+                    'Motion In Two Dimension(11th)',
+                    'Laws Of Motion(11th)',
+                    'Work Power Energy(11th)',
+                    'Circular Motion(11th)',
+                    'Center Of Mass And Momentum(11th)',
+                    'Rotational Motion(11th)',
+                    'Gravitation(11th)',
+                    'Properties Of Matter(11th)',
+                    'Fluid Mechanics(11th)'
+                ],
+                'Thermodynamics': [
+                    'Kinetic Theory Of Gases(11th)',
+                    'Thermal Properties Of Matter(12th)',
+                    'Calorimetry(12th)',
+                    'Heat Transfer(12th)'
+                ],
+                'Waves_and_Oscillations': [
+                    'Oscillations(11th)',
+                    'Waves And Sound(11th)'
+                ],
+                'Electromagnetism': [
+                    'Electrostatics(12th)',
+                    'Capacitance(12th)',
+                    'Current Electricity(12th)',
+                    'Magnetic Effects Of Current(12th)',
+                    'Magnetism(12th)',
+                    'Electromagnetic Induction(12th)',
+                    'Alternating Current(12th)'
+                ],
+                'Optics': [
+                    'Ray Optics(12th)',
+                    'Wave Optics(12th)'
+                ],
+                'Modern_Physics': [
+                    'Atomic Physics(12th)',
+                    'Nuclear Physics(12th)',
+                    'Photoelectric Effect(12th)',
+                    'Semiconductors(12th)'
+                ],
+                'Electronics_and_Communication': [
+                    'Communication System(12th)',
+                    'Electromagnetic Waves(12th)'
+                ],
+                'Miscellaneous': [
+                    'Experimental Physics',
+                    'Mathematics In Physics'
+                ]
+            }
+        };
+
+        // Global variables
+        let trackerData = JSON.parse(localStorage.getItem('jeeTracker')) || {};
+        let examData = JSON.parse(localStorage.getItem('jeeExams')) || {};
+        let pomodoroData = JSON.parse(localStorage.getItem('pomodoroData')) || {
+            totalSessions: 0,
+            totalFocusTime: 0,
+            totalBreakTime: 0,
+            dailyStats: {},
+            streak: 0,
+            lastStudyDate: null
+        };
+
+        let currentChapterId = null;
+        let currentExamId = null;
+        let currentCalendarDate = new Date();
+        let currentExamSubject = 'mathematics';
+        let selectedExamChapters = [];
+        let manualChapters = [];
+        let selectedExamType = 'mock-test';
+
+        let timerState = {
+            isRunning: false,
+            currentTime: 25 * 60,
+            totalTime: 25 * 60,
+            currentSession: 'focus',
+            sessionCount: 0,
+            isFullscreen: false
+        };
+
+        let timerInterval;
+        const subjects = ['mathematics', 'chemistry', 'physics'];
+        const subjectTotals = { mathematics: 31, chemistry: 34, physics: 34 };
+
+        const focusQuotes = [
+            "Success is the sum of small efforts repeated day in and day out. - Robert Collier",
+            "The expert in anything was once a beginner. - Helen Hayes",
+            "Don't watch the clock; do what it does. Keep going. - Sam Levenson",
+            "Success is not final, failure is not fatal: it is the courage to continue that counts. - Winston Churchill",
+            "The future depends on what you do today. - Mahatma Gandhi"
+        ];
+
+        const motivationQuotes = [
+            '💪 "YOU HAVE TO GET 99 PERCENTILE, STAY CONSISTENT!!"',
+            '🎯 "Every chapter you complete brings you closer to your goal, keep working!"',
+            '🔥 "Champions are made when nobody is watching!and you are a champion"',
+            '⚡ "Your only competition is who you were yesterday!"',
+            '🚀 "Dream big, work hard, stay focused!"'
+        ];
+
+        let quoteIndex = 0;
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            populateChapters();
+            loadData();
+            updateProgress();
+            updatePomodoroStats();
+            setupNavigation();
+            setupTimerSettings();
+            updateTimerDisplay();
+            updateTimerProgress();
+            updateSessionType();
+            renderScheduledChapters();
+        });
+
+        // Setup navigation
+        function setupNavigation() {
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const subject = this.dataset.subject;
+                    
+                    document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
+                    document.getElementById(subject).classList.add('active');
+
+                    // Initialize calendar when calendar tab is opened
+                    if (subject === 'calendar') {
+                        renderCalendar();
+                    }
+                });
+            });
+        }
+
+        // Setup timer settings
+        function setupTimerSettings() {
+            document.getElementById('focusTime').addEventListener('change', function(e) {
+                if (timerState.currentSession === 'focus' && !timerState.isRunning) {
+                    timerState.currentTime = parseInt(e.target.value) * 60;
+                    timerState.totalTime = timerState.currentTime;
+                    updateTimerDisplay();
+                    updateTimerProgress();
+                }
+            });
+            
+            document.getElementById('breakTime').addEventListener('change', function(e) {
+                if (timerState.currentSession !== 'focus' && !timerState.isRunning) {
+                    timerState.currentTime = parseInt(e.target.value) * 60;
+                    timerState.totalTime = timerState.currentTime;
+                    updateTimerDisplay();
+                    updateTimerProgress();
+                }
+            });
+        }
+
+        // Populate chapters
+        function populateChapters() {
+            Object.keys(chaptersData).forEach(subject => {
+                Object.keys(chaptersData[subject]).forEach(category => {
+                    const chapters = chaptersData[subject][category];
+                    const containerId = subject + '_' + category;
+                    const container = document.getElementById(containerId);
+                    
+                    if (container) {
+                        chapters.forEach((chapter, index) => {
+                            const chapterId = subject + '_' + category + '_' + index;
+                            const chapterElement = createChapterElement(chapter, chapterId, subject, category);
+                            container.appendChild(chapterElement);
+                        });
+                    }
+                });
+            });
+        }
+
+        // Create chapter element with popup functionality
+        function createChapterElement(chapterName, chapterId, subject, category) {
+            const div = document.createElement('div');
+            div.className = 'chapter-item';
+            div.id = 'chapter_' + chapterId;
+            
+            div.innerHTML = `
+                <div class="chapter-name" onclick="openChapterPopup('${chapterId}', '${chapterName}', '${subject}', '${category}')">${chapterName}</div>
+                <select class="status-select" onchange="updateStatus('${chapterId}', this.value)">
+                    <option value="not_started">○ Not Started</option>
+                    <option value="in_progress">◐ In Progress</option>
+                    <option value="completed">✓ Completed</option>
+                </select>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox" id="learned_${chapterId}" onchange="saveData()">
+                    <span class="checkbox-label">L</span>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox" id="revised_${chapterId}" onchange="saveData()">
+                    <span class="checkbox-label">R</span>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="checkbox" id="tested_${chapterId}" onchange="saveData()">
+                    <span class="checkbox-label">T</span>
+                </div>
+                <input type="date" class="notes-input" style="width:120px;" id="date_${chapterId}" onchange="handleChapterDateChange('${chapterId}', this.value)">
+                <input type="text" class="notes-input" placeholder="Notes..." id="notes_${chapterId}" onchange="saveData()">
+            `;
+            
+            return div;
+        }
+
+        // CHAPTER POPUP FUNCTIONS
+        function openChapterPopup(chapterId, chapterName, subject, category) {
+            currentChapterId = chapterId;
+            
+            // Set popup header
+            document.getElementById('popupChapterName').textContent = chapterName;
+            document.getElementById('popupChapterCategory').textContent = subject.charAt(0).toUpperCase() + subject.slice(1) + ' > ' + category.replace(/_/g, ' ');
+            
+            // Load current data
+            const data = trackerData[chapterId] || {};
+            
+            // Set status
+            const status = data.status || 'not_started';
+            document.getElementById('status_' + status).checked = true;
+            selectStatus(status);
+            
+            // Set checkboxes
+            document.getElementById('popup_learned').checked = data.learned || false;
+            document.getElementById('popup_revised').checked = data.revised || false;
+            document.getElementById('popup_tested').checked = data.tested || false;
+            
+            // Update checkbox group appearances
+            updateCheckboxGroup('learned');
+            updateCheckboxGroup('revised');
+            updateCheckboxGroup('tested');
+            
+            // Set date and notes
+            document.getElementById('popup_date').value = data.date || '';
+            document.getElementById('popup_notes').value = data.notes || '';
+            
+            // Show popup
+            document.getElementById('chapterPopupOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeChapterPopup() {
+            document.getElementById('chapterPopupOverlay').classList.remove('active');
+            document.getElementById('dateIntegrationPopup').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            currentChapterId = null;
+        }
+
+        function selectStatus(status) {
+            document.getElementById('status_' + status).checked = true;
+            
+            document.querySelectorAll('.status-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector('#status_' + status).closest('.status-option').classList.add('selected');
+        }
+
+        function toggleCheckbox(type) {
+            const checkbox = document.getElementById('popup_' + type);
+            checkbox.checked = !checkbox.checked;
+            updateCheckboxGroup(type);
+        }
+
+        function updateCheckboxGroup(type) {
+            const checkbox = document.getElementById('popup_' + type);
+            const group = checkbox.closest('.checkbox-group');
+            
+            if (checkbox.checked) {
+                group.classList.add('checked');
+            } else {
+                group.classList.remove('checked');
+            }
+        }
+
+        function saveChapterData() {
+            if (!currentChapterId) return;
+            
+            if (!trackerData[currentChapterId]) {
+                trackerData[currentChapterId] = {};
+            }
+            
+            // Get selected status
+            const statusRadios = document.querySelectorAll('input[name="chapterStatus"]');
+            let selectedStatus = 'not_started';
+            statusRadios.forEach(radio => {
+                if (radio.checked) {
+                    selectedStatus = radio.value;
+                }
+            });
+            
+            // Save all data
+            trackerData[currentChapterId].status = selectedStatus;
+            // Check if chapter was just marked as completed
+    const oldStatus = trackerData[currentChapterId].status;
+    const wasJustCompleted = selectedStatus === 'completed' && oldStatus !== 'completed';
+    
+    trackerData[currentChapterId].status = selectedStatus;
+            trackerData[currentChapterId].learned = document.getElementById('popup_learned').checked;
+            trackerData[currentChapterId].revised = document.getElementById('popup_revised').checked;
+            trackerData[currentChapterId].tested = document.getElementById('popup_tested').checked;
+            trackerData[currentChapterId].date = document.getElementById('popup_date').value;
+            trackerData[currentChapterId].notes = document.getElementById('popup_notes').value;
+            
+            // Update main view
+            const statusSelect = document.querySelector('select[onchange*="' + currentChapterId + '"]');
+            if (statusSelect) {
+                statusSelect.value = selectedStatus;
+            }
+            
+            const learnedCheckbox = document.getElementById('learned_' + currentChapterId);
+            const revisedCheckbox = document.getElementById('revised_' + currentChapterId);
+            const testedCheckbox = document.getElementById('tested_' + currentChapterId);
+            const dateInput = document.getElementById('date_' + currentChapterId);
+            const notesInput = document.getElementById('notes_' + currentChapterId);
+            
+            if (learnedCheckbox) learnedCheckbox.checked = trackerData[currentChapterId].learned;
+            if (revisedCheckbox) revisedCheckbox.checked = trackerData[currentChapterId].revised;
+            if (testedCheckbox) testedCheckbox.checked = trackerData[currentChapterId].tested;
+            if (dateInput) dateInput.value = trackerData[currentChapterId].date;
+            if (notesInput) notesInput.value = trackerData[currentChapterId].notes;
+            
+  saveData();
+    updateProgress();
+    closeChapterPopup();
+    renderCalendar(); // Refresh calendar to show updated dates
+    
+    // If chapter was just marked as completed, animate it out
+    if (wasJustCompleted) {
+        const scheduledCard = document.querySelector(`.scheduled-chapter-card[data-chapter-id="${currentChapterId}"]`);
+        if (scheduledCard) {
+            scheduledCard.classList.add('fade-out');
+            setTimeout(() => {
+                removeChapterFromScheduledView(currentChapterId);
+            }, 800);
+        }
+    } else {
+        renderScheduledChapters(); // Refresh scheduled chapters view
+    }
+}
+
+        // DATE INTEGRATION FUNCTIONS
+        function showDateIntegration() {
+            const date = document.getElementById('popup_date').value;
+            if (!date) return;
+
+            const examOptions = getExamsForDate(date);
+            if (examOptions.length === 0) {
+                document.getElementById('dateIntegrationPopup').classList.add('hidden');
+                return;
+            }
+
+            const popup = document.getElementById('dateIntegrationPopup');
+            const optionsContainer = document.getElementById('examIntegrationOptions');
+            
+            optionsContainer.innerHTML = '';
+            
+            examOptions.forEach(exam => {
+                const option = document.createElement('div');
+                option.className = 'integration-option';
+                option.innerHTML = `
+                    <input type="checkbox" class="integration-checkbox" id="exam_${exam.id}">
+                    <label for="exam_${exam.id}">Add to <strong>${exam.name}</strong></label>
+                    <div class="integration-exam-info">${exam.date} at ${exam.time}</div>
+                `;
+                optionsContainer.appendChild(option);
+            });
+
+            popup.classList.remove('hidden');
+        }
+
+        function handleDateChange() {
+            const date = document.getElementById('popup_date').value;
+            if (date) {
+                showDateIntegration();
+            } else {
+                document.getElementById('dateIntegrationPopup').classList.add('hidden');
+            }
+        }
+
+        function handleChapterDateChange(chapterId, date) {
+            if (!trackerData[chapterId]) {
+                trackerData[chapterId] = {};
+            }
+            trackerData[chapterId].date = date;
+            saveData();
+            renderCalendar(); // Refresh calendar
+            renderScheduledChapters(); // Refresh scheduled chapters view to show updated dates
+        }
+
+        function getExamsForDate(date) {
+            return Object.values(examData).filter(exam => exam.date === date);
+        }
+
+        // UPCOMING EXAMS FUNCTIONS
+        function updateUpcomingExams() {
+            const today = new Date();
+            const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+            
+            const upcomingExams = Object.values(examData).filter(exam => {
+                const examDate = new Date(exam.date);
+                return examDate >= today && examDate <= nextWeek;
+            }).sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            const container = document.getElementById('upcomingExamsList');
+            
+            if (upcomingExams.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #8e8e93; padding: 20px;">
+                        No upcoming exams in the next 7 days
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            upcomingExams.forEach(exam => {
+                const examCard = document.createElement('div');
+                examCard.className = `upcoming-exam-card ${exam.type}`;
+                examCard.onclick = () => openExamPopup(exam.date, exam.id);
+                
+                // Calculate progress
+                const totalChapters = exam.chapters ? exam.chapters.length : 0;
+                const completedChapters = totalChapters > 0 ? exam.chapters.filter(chapterId => {
+                    return trackerData[chapterId] && trackerData[chapterId].status === 'completed';
+                }).length : 0;
+                
+                const progressPercent = totalChapters > 0 ? Math.round((completedChapters / totalChapters) * 100) : 0;
+                
+                const examDate = new Date(exam.date);
+                const timeUntil = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+                
+                examCard.innerHTML = `
+                    <div class="exam-card-header">
+                        <div class="exam-name">${exam.name}</div>
+                        <div class="exam-date">${timeUntil === 0 ? 'Today' : timeUntil === 1 ? 'Tomorrow' : `in ${timeUntil} days`}</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                        <span style="font-size: 0.9rem; color: #8e8e93;">${exam.date} at ${exam.time}</span>
+                        <span style="font-size: 0.9rem; font-weight: 600; color: #1c1c1e;">${exam.type.replace('-', ' ').toUpperCase()}</span>
+                    </div>
+                    <div class="exam-progress">
+                        <div class="exam-progress-text">${completedChapters}/${totalChapters} chapters completed</div>
+                        <div class="exam-progress-bar">
+                            <div class="exam-progress-fill" style="width: ${progressPercent}%;"></div>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(examCard);
+            });
+        }
+
+        // CALENDAR FUNCTIONS
+        function initializeCalendar() {
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            // Update header
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDayOfWeek = firstDay.getDay();
+            
+            // Get previous month's last days
+            const prevMonth = new Date(year, month - 1, 0);
+            const daysInPrevMonth = prevMonth.getDate();
+            
+            const calendarGrid = document.getElementById('calendarGrid');
+            calendarGrid.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            // Add previous month's trailing days
+            for (let i = startingDayOfWeek - 1; i >= 0; i--) {
+                const dayElement = createCalendarDay(daysInPrevMonth - i, true, month - 1, year);
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            // Add current month days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = createCalendarDay(day, false, month, year);
+                calendarGrid.appendChild(dayElement);
+            }
+            
+            // Add next month's leading days
+            const totalCells = calendarGrid.children.length - 7; // Subtract day headers
+            const remainingCells = 42 - totalCells; // 6 rows × 7 days = 42 cells
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = createCalendarDay(day, true, month + 1, year);
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function createCalendarDay(dayNumber, isOtherMonth, month, year) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'calendar-day';
+            
+            if (isOtherMonth) {
+                dayElement.classList.add('other-month');
+            }
+            
+            const today = new Date();
+            const cellDate = new Date(year, month, dayNumber);
+            
+            if (!isOtherMonth && 
+                cellDate.getDate() === today.getDate() && 
+                cellDate.getMonth() === today.getMonth() && 
+                cellDate.getFullYear() === today.getFullYear()) {
+                dayElement.classList.add('today');
+            }
+            
+            const dateString = cellDate.toISOString().split('T')[0];
+            
+            // Check for exams on this date
+            const examsOnDate = Object.values(examData).filter(exam => exam.date === dateString);
+            if (examsOnDate.length > 0) {
+                dayElement.classList.add('has-exam');
+            }
+            
+            dayElement.innerHTML = `
+                <div class="day-number">${dayNumber}</div>
+                ${examsOnDate.map(exam => 
+                    `<div class="exam-indicator ${exam.type}" title="${exam.name}" onclick="event.stopPropagation(); openExamPopup('${exam.date}', '${exam.id}')">${exam.name}</div>`
+                ).join('')}
+            `;
+            
+            if (!isOtherMonth) {
+                dayElement.onclick = () => openExamPopup(dateString);
+            }
+            
+            return dayElement;
+        }
+
+        function changeMonth(direction) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + direction);
+            renderCalendar();
+        }
+
+        // EXAM POPUP FUNCTIONS
+        function openExamPopup(date = null, examId = null) {
+            currentExamId = examId;
+            selectedExamChapters = [];
+            manualChapters = [];
+            
+            if (examId && examData[examId]) {
+                // Edit existing exam
+                const exam = examData[examId];
+                document.getElementById('examPopupTitle').textContent = 'Edit Exam';
+                document.getElementById('examName').value = exam.name;
+                document.getElementById('examDate').value = exam.date;
+                document.getElementById('examTime').value = exam.time;
+                selectedExamType = exam.type;
+                selectedExamChapters = [...(exam.chapters || [])];
+                manualChapters = [...(exam.manualChapters || [])];
+                document.getElementById('deleteExamBtn').style.display = 'inline-block';
+            } else {
+                // Add new exam
+                document.getElementById('examPopupTitle').textContent = 'Add New Exam';
+                document.getElementById('examName').value = '';
+                document.getElementById('examDate').value = date || '';
+                document.getElementById('examTime').value = '09:00';
+                selectedExamType = 'mock-test';
+                document.getElementById('deleteExamBtn').style.display = 'none';
+            }
+            
+            selectExamType(selectedExamType);
+            populateChapterSelection();
+            updateSelectedChapterTags();
+            
+            document.getElementById('examPopupOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeExamPopup() {
+            document.getElementById('examPopupOverlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentExamId = null;
+        }
+
+        function selectExamType(type) {
+            selectedExamType = type;
+            document.querySelectorAll('.exam-type-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[onclick="selectExamType('${type}')"]`).classList.add('selected');
+        }
+
+        function selectSubjectTab(subject) {
+            currentExamSubject = subject;
+            document.querySelectorAll('.subject-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[onclick="selectSubjectTab('${subject}')"]`).classList.add('active');
+            populateChapterSelection();
+        }
+
+        function populateChapterSelection() {
+            const container = document.getElementById('chapterSelectionList');
+            container.innerHTML = '';
+            
+            Object.keys(chaptersData[currentExamSubject]).forEach(category => {
+                chaptersData[currentExamSubject][category].forEach((chapter, index) => {
+                    const chapterId = `${currentExamSubject}_${category}_${index}`;
+                    const item = document.createElement('div');
+                    item.className = 'chapter-selection-item';
+                    
+                    const isSelected = selectedExamChapters.includes(chapterId);
+                    
+                    item.innerHTML = `
+                        <input type="checkbox" class="chapter-checkbox" ${isSelected ? 'checked' : ''} 
+                               onchange="toggleChapterSelection('${chapterId}')">
+                        <span>${chapter}</span>
+                        <small style="margin-left: auto; color: #8e8e93;">${category.replace(/_/g, ' ')}</small>
+                    `;
+                    
+                    container.appendChild(item);
+                });
+            });
+        }
+
+        function toggleChapterSelection(chapterId) {
+            const index = selectedExamChapters.indexOf(chapterId);
+            if (index === -1) {
+                selectedExamChapters.push(chapterId);
+            } else {
+                selectedExamChapters.splice(index, 1);
+            }
+            updateSelectedChapterTags();
+        }
+
+        function addManualChapter() {
+            const input = document.getElementById('manualChapterInput');
+            const chapterName = input.value.trim();
+            
+            if (chapterName && !manualChapters.includes(chapterName)) {
+                manualChapters.push(chapterName);
+                input.value = '';
+                updateSelectedChapterTags();
+            }
+        }
+
+        function updateSelectedChapterTags() {
+            const container = document.getElementById('selectedChapterTags');
+            container.innerHTML = '';
+            
+            // Add predefined chapters
+            selectedExamChapters.forEach(chapterId => {
+                const chapterName = getChapterNameById(chapterId);
+                const tag = document.createElement('span');
+                tag.className = 'selected-chapter-tag';
+                tag.innerHTML = `${chapterName}<span class="remove-chapter" onclick="removeChapterSelection('${chapterId}')">×</span>`;
+                container.appendChild(tag);
+            });
+            
+            // Add manual chapters
+            manualChapters.forEach(chapterName => {
+                const tag = document.createElement('span');
+                tag.className = 'selected-chapter-tag';
+                tag.style.background = '#34C759';
+                tag.innerHTML = `${chapterName}<span class="remove-chapter" onclick="removeManualChapter('${chapterName}')">×</span>`;
+                container.appendChild(tag);
+            });
+        }
+
+        function removeChapterSelection(chapterId) {
+            const index = selectedExamChapters.indexOf(chapterId);
+            if (index !== -1) {
+                selectedExamChapters.splice(index, 1);
+                updateSelectedChapterTags();
+                populateChapterSelection();
+            }
+        }
+
+        function removeManualChapter(chapterName) {
+            const index = manualChapters.indexOf(chapterName);
+            if (index !== -1) {
+                manualChapters.splice(index, 1);
+                updateSelectedChapterTags();
+            }
+        }
+
+        function getChapterNameById(chapterId) {
+            const [subject, category, index] = chapterId.split('_');
+            const categoryKey = chapterId.substring(subject.length + 1, chapterId.lastIndexOf('_'));
+            const chapterIndex = parseInt(chapterId.split('_').pop());
+            return chaptersData[subject][categoryKey][chapterIndex];
+        }
+
+        function searchExamChapters(query) {
+            const items = document.querySelectorAll('.chapter-selection-item');
+            items.forEach(item => {
+                const chapterName = item.querySelector('span').textContent.toLowerCase();
+                if (chapterName.includes(query.toLowerCase())) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function saveExam() {
+            const name = document.getElementById('examName').value.trim();
+            const date = document.getElementById('examDate').value;
+            const time = document.getElementById('examTime').value;
+            
+            if (!name || !date) {
+                alert('Please fill in exam name and date');
+                return;
+            }
+            
+            const examId = currentExamId || 'exam_' + Date.now();
+            
+            examData[examId] = {
+                id: examId,
+                name: name,
+                date: date,
+                time: time,
+                type: selectedExamType,
+                chapters: [...selectedExamChapters],
+                manualChapters: [...manualChapters],
+                created: new Date().toISOString()
+            };
+            
+            localStorage.setItem('jeeExams', JSON.stringify(examData));
+            renderCalendar();
+            updateUpcomingExams();
+            closeExamPopup();
+        }
+
+        function deleteExam() {
+            if (currentExamId && confirm('Are you sure you want to delete this exam?')) {
+                delete examData[currentExamId];
+                localStorage.setItem('jeeExams', JSON.stringify(examData));
+                renderCalendar();
+                updateUpcomingExams();
+                closeExamPopup();
+            }
+        }
+
+  function updateStatus(chapterId, status) {
+    if (!trackerData[chapterId]) {
+        trackerData[chapterId] = {};
+    }
+    
+    const oldStatus = trackerData[chapterId].status;
+    trackerData[chapterId].status = status;
+    
+    // If chapter was just marked as completed and it's in the scheduled view
+    if (status === 'completed' && oldStatus !== 'completed') {
+        const scheduledCard = document.querySelector(`.scheduled-chapter-card[data-chapter-id="${chapterId}"]`);
+        if (scheduledCard) {
+            // Add fade out animation
+            scheduledCard.classList.add('fade-out');
+            
+            // Remove from DOM after animation
+            setTimeout(() => {
+                removeChapterFromScheduledView(chapterId);
+            }, 800);
+        }
+    }
+    
+    saveData();
+    updateProgress();
+}
+        // Progress tracking
+        function updateProgress() {
+            let totalCompleted = 0;
+            
+            subjects.forEach(subject => {
+                let completed = 0, inProgress = 0, notStarted = 0;
+                
+                Object.keys(trackerData).forEach(key => {
+                    if (key.startsWith(subject)) {
+                        const status = trackerData[key].status;
+                        if (status === "completed") completed++;
+                        else if (status === "in_progress") inProgress++;
+                        else notStarted++;
+                    }
+                });
+                
+                const total = subjectTotals[subject];
+                notStarted = total - completed - inProgress;
+                totalCompleted += completed;
+                
+                const pct = total > 0 ? (completed/total)*100 : 0;
+                const barId = subject.slice(0,4) + "Progress";
+                const bar = document.getElementById(barId);
+                if (bar) bar.style.width = Math.round(pct) + "%";
+                
+                // Update subject badges
+                const completedEl = document.getElementById(subject + 'Completed');
+                const inProgressEl = document.getElementById(subject + 'InProgress');
+                const notStartedEl = document.getElementById(subject + 'NotStarted');
+                if(completedEl) completedEl.textContent = completed;
+                if(inProgressEl) inProgressEl.textContent = inProgress;
+                if(notStartedEl) notStartedEl.textContent = notStarted;
+            });
+
+            const overallPct = Math.round(totalCompleted/99*100);
+            document.getElementById("completedChapters").textContent = totalCompleted;
+            document.getElementById("overallProgress").textContent = overallPct + "%";
+            
+            const overallBar = document.getElementById('overallProgressBar');
+            const progressText = document.getElementById('progressText');
+            const completedCount = document.getElementById('completedCount');
+            
+            if(overallBar) overallBar.style.width = overallPct + '%';
+            if(progressText) progressText.textContent = overallPct + '%';
+            if(completedCount) completedCount.textContent = totalCompleted;
+            
+            updateCategoryProgress();
+            updateUpcomingExams();
+        }
+
+        function updateCategoryProgress() {
+            const categories = {
+                'mathematics': {
+                    'Algebra': 7, 'Calculus': 9, 'Coordinate_Geometry': 5, 'Trigonometry': 5, 'Vector_and_3D': 2, 'Statistics_and_Probability': 3
+                },
+                'chemistry': {
+                    'Physical_Chemistry': 11, 'Inorganic_Chemistry': 8, 'Organic_Chemistry': 13, 'Miscellaneous': 2
+                },
+                'physics': {
+                    'Mechanics': 11, 'Thermodynamics': 4, 'Waves_and_Oscillations': 2, 'Electromagnetism': 7, 'Optics': 2, 'Modern_Physics': 4, 'Electronics_and_Communication': 2, 'Miscellaneous': 2
+                }
+            };
+
+            Object.keys(categories).forEach(subject => {
+                Object.keys(categories[subject]).forEach(category => {
+                    let completed = 0;
+                    let total = categories[subject][category];
+                    
+                    Object.keys(trackerData).forEach(key => {
+                        if (key.startsWith(subject + '_' + category) && trackerData[key].status === 'completed') {
+                            completed++;
+                        }
+                    });
+                    
+                    const progressElement = document.getElementById(subject + '_' + category + '_progress');
+                    if (progressElement) {
+                        progressElement.textContent = completed + '/' + total + ' completed';
+                    }
+                });
+            });
+        }
+
+        // Search functionality
+        function searchChapters(subject, query) {
+            const chapters = document.querySelectorAll('#' + subject + ' .chapter-item');
+            
+            chapters.forEach(chapter => {
+                const chapterName = chapter.querySelector('.chapter-name').textContent.toLowerCase();
+                if (chapterName.includes(query.toLowerCase())) {
+                    chapter.style.display = 'grid';
+                } else {
+                    chapter.style.display = 'none';
+                }
+            });
+        }
+
+        // Data management
+        function saveData() {
+            localStorage.setItem('jeeTracker', JSON.stringify(trackerData));
+        }
+
+        function loadData() {
+            Object.keys(trackerData).forEach(chapterId => {
+                const data = trackerData[chapterId];
+                
+                const statusSelect = document.querySelector('select[onchange*="' + chapterId + '"]');
+                if (statusSelect && data.status) {
+                    statusSelect.value = data.status;
+                }
+                
+                ['learned', 'revised', 'tested'].forEach(type => {
+                    const checkbox = document.getElementById(type + '_' + chapterId);
+                    if (checkbox && data[type]) {
+                        checkbox.checked = data[type];
+                    }
+                });
+                
+                const dateInput = document.getElementById('date_' + chapterId);
+                if (dateInput && data.date) {
+                    dateInput.value = data.date;
+                }
+                
+                const notesInput = document.getElementById('notes_' + chapterId);
+                if (notesInput && data.notes) {
+                    notesInput.value = data.notes;
+                }
+            });
+        }
+
+        // POMODORO RESET FUNCTION
+        function resetPomodoroProgress() {
+            if (confirm('Are you sure you want to reset ALL Pomodoro data? This action cannot be undone.')) {
+                if (confirm('This will delete all your statistics, streak, and session history. Continue?')) {
+                    // Reset pomodoro data
+                    pomodoroData = {
+                        totalSessions: 0,
+                        totalFocusTime: 0,
+                        totalBreakTime: 0,
+                        dailyStats: {},
+                        streak: 0,
+                        lastStudyDate: null
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('pomodoroData', JSON.stringify(pomodoroData));
+                    
+                    // Update display
+                    updatePomodoroStats();
+                    
+                    alert('All Pomodoro data has been reset successfully.');
+                }
+            }
+        }
+
+        // POMODORO TIMER FUNCTIONS (Same as before)
+        function startTimer() {
+            if (!timerState.isRunning) {
+                timerState.isRunning = true;
+                showTimerButtons('pause');
+                timerInterval = setInterval(() => {
+                    timerState.currentTime--;
+                    updateTimerDisplay();
+                    updateTimerProgress();
+                    
+                    if (timerState.currentTime <= 0) {
+                        completeSession();
+                    }
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            if (timerState.isRunning) {
+                timerState.isRunning = false;
+                clearInterval(timerInterval);
+                showTimerButtons('resume');
+            }
+        }
+
+        function resumeTimer() {
+            if (!timerState.isRunning) {
+                timerState.isRunning = true;
+                showTimerButtons('pause');
+                timerInterval = setInterval(() => {
+                    timerState.currentTime--;
+                    updateTimerDisplay();
+                    updateTimerProgress();
+                    
+                    if (timerState.currentTime <= 0) {
+                        completeSession();
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerState.isRunning = false;
+            showTimerButtons('start');
+            
+            if (timerState.currentSession === 'focus') {
+                timerState.currentTime = parseInt(document.getElementById('focusTime').value) * 60;
+            } else {
+                timerState.currentTime = parseInt(document.getElementById('breakTime').value) * 60;
+            }
+            timerState.totalTime = timerState.currentTime;
+            
+            updateTimerDisplay();
+            updateTimerProgress();
+        }
+
+        function skipSession() {
+            clearInterval(timerInterval);
+            completeSession();
+        }
+
+        function completeSession() {
+            clearInterval(timerInterval);
+            timerState.isRunning = false;
+            showTimerButtons('start');
+            
+            recordSession();
+            
+            if (timerState.currentSession === 'focus') {
+                timerState.sessionCount++;
+                updateSessionDots();
+                
+                if (timerState.sessionCount >= 4) {
+                    startBreak(15);
+                    timerState.sessionCount = 0;
+                    resetSessionDots();
+                } else {
+                    startBreak(parseInt(document.getElementById('breakTime').value));
+                }
+            } else {
+                startFocus();
+            }
+        }
+
+        function startFocus() {
+            timerState.currentSession = 'focus';
+            timerState.currentTime = parseInt(document.getElementById('focusTime').value) * 60;
+            timerState.totalTime = timerState.currentTime;
+            updateTimerDisplay();
+            updateTimerProgress();
+            updateSessionType();
+        }
+
+        function startBreak(minutes) {
+            timerState.currentSession = minutes >= 15 ? 'longBreak' : 'break';
+            timerState.currentTime = minutes * 60;
+            timerState.totalTime = timerState.currentTime;
+            updateTimerDisplay();
+            updateTimerProgress();
+            updateSessionType();
+        }
+
+        function showTimerButtons(state) {
+            const startBtn = document.getElementById('startBtn');
+            const pauseBtn = document.getElementById('pauseBtn');
+            const resumeBtn = document.getElementById('resumeBtn');
+            const fullscreenPauseBtn = document.getElementById('fullscreenPauseBtn');
+            const fullscreenResumeBtn = document.getElementById('fullscreenResumeBtn');
+            
+            if (state === 'start') {
+                startBtn.style.display = 'inline-block';
+                pauseBtn.style.display = 'none';
+                resumeBtn.style.display = 'none';
+                if (fullscreenPauseBtn) fullscreenPauseBtn.style.display = 'none';
+                if (fullscreenResumeBtn) fullscreenResumeBtn.style.display = 'none';
+            } else if (state === 'pause') {
+                startBtn.style.display = 'none';
+                pauseBtn.style.display = 'inline-block';
+                resumeBtn.style.display = 'none';
+                if (fullscreenPauseBtn) fullscreenPauseBtn.style.display = 'inline-block';
+                if (fullscreenResumeBtn) fullscreenResumeBtn.style.display = 'none';
+            } else if (state === 'resume') {
+                startBtn.style.display = 'none';
+                pauseBtn.style.display = 'none';
+                resumeBtn.style.display = 'inline-block';
+                if (fullscreenPauseBtn) fullscreenPauseBtn.style.display = 'none';
+                if (fullscreenResumeBtn) fullscreenResumeBtn.style.display = 'inline-block';
+            }
+        }
+
+        function toggleFullscreen() {
+            const overlay = document.getElementById('pomodoroFullscreen');
+            timerState.isFullscreen = !timerState.isFullscreen;
+            
+            if (timerState.isFullscreen) {
+                overlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                
+                const randomQuote = focusQuotes[Math.floor(Math.random() * focusQuotes.length)];
+                document.getElementById('focusQuote').textContent = randomQuote;
+            } else {
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerState.currentTime / 60);
+            const seconds = timerState.currentTime % 60;
+            const timeString = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+            
+            document.getElementById('timerDisplay').textContent = timeString;
+            const fullscreenDisplay = document.getElementById('fullscreenTimerDisplay');
+            if (fullscreenDisplay) fullscreenDisplay.textContent = timeString;
+        }
+
+        function updateTimerProgress() {
+            const progress = (timerState.totalTime - timerState.currentTime) / timerState.totalTime;
+            const circumference = 2 * Math.PI * 90;
+            const fullscreenCircumference = 2 * Math.PI * 140;
+            
+            const offset = circumference * (1 - progress);
+            const fullscreenOffset = fullscreenCircumference * (1 - progress);
+            
+            document.getElementById('timerProgressCircle').style.strokeDashoffset = offset;
+            const fullscreenCircle = document.getElementById('fullscreenProgressCircle');
+            if (fullscreenCircle) fullscreenCircle.style.strokeDashoffset = fullscreenOffset;
+        }
+
+        function updateSessionType() {
+            const sessionText = timerState.currentSession === 'focus' ? 'Focus Session' :
+                               timerState.currentSession === 'longBreak' ? 'Long Break' : 'Break Time';
+            
+            document.getElementById('timerSession').textContent = sessionText;
+            const fullscreenSession = document.getElementById('fullscreenTimerSession');
+            if (fullscreenSession) fullscreenSession.textContent = sessionText;
+            
+            const color = timerState.currentSession === 'focus' ? '#007AFF' : '#34C759';
+            document.getElementById('timerProgressCircle').style.stroke = color;
+            const fullscreenCircle = document.getElementById('fullscreenProgressCircle');
+            if (fullscreenCircle) fullscreenCircle.style.stroke = color;
+        }
+
+        function updateSessionDots() {
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById('session' + i);
+                if (i <= timerState.sessionCount) {
+                    dot.classList.add('completed');
+                    dot.classList.remove('active');
+                } else if (i === timerState.sessionCount + 1) {
+                    dot.classList.add('active');
+                    dot.classList.remove('completed');
+                } else {
+                    dot.classList.remove('active', 'completed');
+                }
+            }
+        }
+
+        function resetSessionDots() {
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('session' + i).classList.remove('active', 'completed');
+            }
+        }
+
+        function recordSession() {
+            const today = new Date().toDateString();
+            const sessionDuration = timerState.totalTime / 60;
+            
+            if (!pomodoroData.dailyStats[today]) {
+                pomodoroData.dailyStats[today] = {
+                    sessions: 0,
+                    focusTime: 0,
+                    breakTime: 0
+                };
+            }
+            
+            pomodoroData.totalSessions++;
+            pomodoroData.dailyStats[today].sessions++;
+            
+            if (timerState.currentSession === 'focus') {
+                pomodoroData.totalFocusTime += sessionDuration;
+                pomodoroData.dailyStats[today].focusTime += sessionDuration;
+            } else {
+                pomodoroData.totalBreakTime += sessionDuration;
+                pomodoroData.dailyStats[today].breakTime += sessionDuration;
+            }
+            
+            updateStreak();
+            localStorage.setItem('pomodoroData', JSON.stringify(pomodoroData));
+            updatePomodoroStats();
+        }
+
+        function updateStreak() {
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            if (!pomodoroData.lastStudyDate) {
+                pomodoroData.streak = 1;
+            } else if (pomodoroData.lastStudyDate === yesterday) {
+                pomodoroData.streak++;
+            } else if (pomodoroData.lastStudyDate !== today) {
+                pomodoroData.streak = 1;
+            }
+            
+            pomodoroData.lastStudyDate = today;
+        }
+
+        function updatePomodoroStats() {
+            const today = new Date().toDateString();
+            const todayStats = pomodoroData.dailyStats[today] || { sessions: 0, focusTime: 0, breakTime: 0 };
+            
+            document.getElementById('totalPomodoros').textContent = pomodoroData.totalSessions;
+            document.getElementById('totalFocusTime').textContent = formatTime(pomodoroData.totalFocusTime);
+            document.getElementById('studyStreak').textContent = pomodoroData.streak;
+            
+            document.getElementById('todayPomodoros').textContent = todayStats.sessions;
+            document.getElementById('todayFocusTime').textContent = Math.round(todayStats.focusTime) + 'm';
+            document.getElementById('todayBreakTime').textContent = Math.round(todayStats.breakTime) + 'm';
+        }
+
+        function formatTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = Math.round(minutes % 60);
+            return hours > 0 ? hours + 'h ' + mins + 'm' : mins + 'm';
+        }
+
+        function rotateMotivationQuote() {
+            quoteIndex = (quoteIndex + 1) % motivationQuotes.length;
+            document.getElementById('motivationText').textContent = motivationQuotes[quoteIndex];
+        }
+
+        // Event listeners
+        document.getElementById('chapterPopupOverlay').addEventListener('click', function(e) {
+            if (e.target.id === 'chapterPopupOverlay') {
+                closeChapterPopup();
+            }
+        });
+
+        document.getElementById('examPopupOverlay').addEventListener('click', function(e) {
+            if (e.target.id === 'examPopupOverlay') {
+                closeExamPopup();
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.date-input-container')) {
+                document.getElementById('dateIntegrationPopup').classList.add('hidden');
+            }
+        });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        if (timerState.isFullscreen) {
+            toggleFullscreen();
+        } else if (document.getElementById('notePopupOverlay').classList.contains('active')) {
+            closeNotePopup();
+        } else if (currentChapterId) {
+            closeChapterPopup();
+        } else if (currentExamId !== null || document.getElementById('examPopupOverlay').classList.contains('active')) {
+            closeExamPopup();
+        }
+    }
+});
+
+        // Auto-save and updates
+        setInterval(saveData, 30000);
+        setInterval(updatePomodoroStats, 1000);
+        setInterval(rotateMotivationQuote, 10000);
+        setInterval(updateUpcomingExams, 60000); // Update upcoming exams every minute
+        // SCHEDULED CHAPTERS FUNCTIONS
+let currentScheduleFilter = 'all';
+
+function renderScheduledChapters() {
+    const container = document.getElementById('scheduledChaptersContainer');
+    const emptyState = document.getElementById('emptyScheduleState');
+    
+    if (!container) return;
+    
+    // Get all chapters with dates
+    const scheduledChapters = [];
+    
+    Object.keys(trackerData).forEach(chapterId => {
+        const data = trackerData[chapterId];
+        if (data.date) {
+            const chapterName = getChapterNameById(chapterId);
+            const [subject, ...rest] = chapterId.split('_');
+            const index = rest.pop();
+            const category = rest.join('_');
+            
+            scheduledChapters.push({
+                id: chapterId,
+                name: chapterName,
+                subject: subject,
+                category: category.replace(/_/g, ' '),
+                date: data.date,
+                status: data.status || 'not_started',
+                learned: data.learned || false,
+                revised: data.revised || false,
+                tested: data.tested || false,
+                notes: data.notes || ''
+            });
+        }
+    });
+    
+    if (scheduledChapters.length === 0) {
+        container.innerHTML = '';
+        emptyState.style.display = 'block';
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    
+    // Filter chapters based on current filter
+    const filteredChapters = filterChaptersByDate(scheduledChapters);
+    
+    if (filteredChapters.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px 20px; color: #8e8e93;">
+                <div style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;">📭</div>
+                <h3 style="color: #1c1c1e; margin-bottom: 10px;">No chapters match this filter</h3>
+                <p>Try selecting a different time period</p>
+            </div>
+        `;
+        return;
+    }
+    
+    // Group chapters by date
+    const groupedByDate = {};
+    filteredChapters.forEach(chapter => {
+        if (!groupedByDate[chapter.date]) {
+            groupedByDate[chapter.date] = [];
+        }
+        groupedByDate[chapter.date].push(chapter);
+    });
+    
+    // Sort dates
+    const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(a) - new Date(b));
+    
+    // Render
+    container.innerHTML = '';
+    
+    sortedDates.forEach((date, index) => {
+        const chapters = groupedByDate[date];
+        const dateObj = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const chapterDate = new Date(dateObj);
+        chapterDate.setHours(0, 0, 0, 0);
+        
+        const isToday = chapterDate.getTime() === today.getTime();
+        const isOverdue = chapterDate < today;
+        const isTomorrow = chapterDate.getTime() === new Date(today.getTime() + 86400000).getTime();
+        
+        const dateGroup = document.createElement('div');
+        dateGroup.className = 'scheduled-date-group';
+        dateGroup.style.animationDelay = (index * 0.1) + 's';
+        
+        let dateLabel = formatDateLabel(dateObj);
+        if (isToday) dateLabel = '📍 Today';
+        else if (isTomorrow) dateLabel = '🔜 Tomorrow';
+        else if (isOverdue) dateLabel = '⚠️ ' + dateLabel + ' (Overdue)';
+        
+        const headerClass = isToday ? 'today' : isOverdue ? 'overdue' : '';
+        
+        dateGroup.innerHTML = `
+            <div class="scheduled-date-header ${headerClass}">
+                <div class="date-header-left">
+                    <div class="date-label">${dateLabel}</div>
+                    <div class="date-meta">${formatDateFull(dateObj)}</div>
+                </div>
+                <div class="date-header-right">
+                    <div class="chapter-count-badge">
+                        ${chapters.length} ${chapters.length === 1 ? 'Chapter' : 'Chapters'}
+                    </div>
+                </div>
+            </div>
+            <div class="scheduled-chapters-list" id="date_${date}">
+            </div>
+        `;
+        
+        container.appendChild(dateGroup);
+        
+        const chaptersList = document.getElementById('date_' + date);
+        chapters.forEach(chapter => {
+            const card = createScheduledChapterCard(chapter);
+            chaptersList.appendChild(card);
+        });
+    });
+}
+
+function filterChaptersByDate(chapters) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    return chapters.filter(chapter => {
+        const chapterDate = new Date(chapter.date);
+        chapterDate.setHours(0, 0, 0, 0);
+        
+        switch(currentScheduleFilter) {
+            case 'all':
+                return true;
+            case 'today':
+                return chapterDate.getTime() === today.getTime();
+            case 'tomorrow':
+                const tomorrow = new Date(today.getTime() + 86400000);
+                return chapterDate.getTime() === tomorrow.getTime();
+            case 'week':
+                const weekFromNow = new Date(today.getTime() + 7 * 86400000);
+                return chapterDate >= today && chapterDate <= weekFromNow;
+            case 'month':
+                const monthFromNow = new Date(today);
+                monthFromNow.setMonth(monthFromNow.getMonth() + 1);
+                return chapterDate >= today && chapterDate <= monthFromNow;
+            case 'overdue':
+                return chapterDate < today;
+            default:
+                return true;
+        }
+    });
+}
+
+function createScheduledChapterCard(chapter) {
+    const card = document.createElement('div');
+    card.className = 'scheduled-chapter-card';
+    card.setAttribute('data-chapter-id', chapter.id);
+    
+    const statusIcon = chapter.status === 'completed' ? '✓' : 
+                      chapter.status === 'in_progress' ? '◐' : '○';
+    const statusClass = 'status-' + chapter.status.replace('_', '-');
+    
+    const subjectEmoji = chapter.subject === 'mathematics' ? '📐' : 
+                        chapter.subject === 'chemistry' ? '⚗️' : '⚡';
+    
+    const progressBadges = [];
+    if (chapter.learned) progressBadges.push('<span class="mini-badge badge-learned">📖 Learned</span>');
+    if (chapter.revised) progressBadges.push('<span class="mini-badge badge-revised">🔄 Revised</span>');
+    if (chapter.tested) progressBadges.push('<span class="mini-badge badge-tested">📝 Tested</span>');
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const chapterDate = new Date(chapter.date);
+    chapterDate.setHours(0, 0, 0, 0);
+    const daysUntil = Math.ceil((chapterDate - today) / (1000 * 60 * 60 * 24));
+    
+    let timeUntilText = '';
+    if (daysUntil < 0) {
+        timeUntilText = '<span class="overdue-badge">' + Math.abs(daysUntil) + ' ' + (Math.abs(daysUntil) === 1 ? 'day' : 'days') + ' overdue</span>';
+    } else if (daysUntil === 0) {
+        timeUntilText = '<span class="time-until" style="color: #FF9500; font-weight: 600;">Due today</span>';
+    } else if (daysUntil === 1) {
+        timeUntilText = '<span class="time-until">Due tomorrow</span>';
+    } else {
+        timeUntilText = '<span class="time-until">In ' + daysUntil + ' days</span>';
+    }
+    
+    const escapedNotes = chapter.notes ? chapter.notes.replace(/`/g, '\\`').replace(/\n/g, ' ').replace(/'/g, "\\'").replace(/"/g, '&quot;') : '';
+    const noteButton = chapter.notes ? '<button class="meta-badge" style="cursor: pointer; background: #007AFF; color: white; border: none; transition: all 0.3s ease;" onclick="event.stopPropagation(); showChapterNote(\'' + chapter.id + '\', `' + escapedNotes + '`)" onmouseover="this.style.background=\'#0056CC\'" onmouseout="this.style.background=\'#007AFF\'">📝 Note</button>' : '';
+    
+    card.innerHTML = `
+        <div class="chapter-status-indicator ${statusClass}">
+            ${statusIcon}
+        </div>
+        <div class="chapter-info">
+            <div class="chapter-name-scheduled">${chapter.name}</div>
+            <div class="chapter-meta">
+                <span class="meta-badge">${subjectEmoji} ${chapter.subject.charAt(0).toUpperCase() + chapter.subject.slice(1)}</span>
+                <span class="meta-badge">📚 ${chapter.category}</span>
+                ${noteButton}
+                ${timeUntilText}
+            </div>
+            ${progressBadges.length > 0 ? '<div class="progress-badges">' + progressBadges.join('') + '</div>' : ''}
+        </div>
+        <div class="chapter-actions">
+            <button class="action-btn" onclick="openChapterPopupFromSchedule('${chapter.id}')" title="Edit Chapter">✏️</button>
+        </div>
+    `;
+    
+    return card;
+}
+
+function filterSchedule(filter) {
+    currentScheduleFilter = filter;
+    
+    // Update button states
+    document.querySelectorAll('.schedule-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    renderScheduledChapters();
+}
+
+function openChapterPopupFromSchedule(chapterId) {
+    const [subject, ...rest] = chapterId.split('_');
+    const index = rest.pop();
+    const category = rest.join('_');
+    
+    const chapterName = getChapterNameById(chapterId);
+    openChapterPopup(chapterId, chapterName, subject, category);
+}
+
+function formatDateLabel(date) {
+    const options = { month: 'short', day: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+function formatDateFull(date) {
+    const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+// Remove chapter from scheduled view with animation cleanup
+function removeChapterFromScheduledView(chapterId) {
+    const scheduledCard = document.querySelector(`.scheduled-chapter-card[data-chapter-id="${chapterId}"]`);
+    
+    if (scheduledCard) {
+        const dateList = scheduledCard.closest('.scheduled-chapters-list');
+        scheduledCard.remove();
+        
+        // Check if the date group is now empty
+        if (dateList && dateList.children.length === 0) {
+            const dateGroup = dateList.closest('.scheduled-date-group');
+            if (dateGroup) {
+                dateGroup.classList.add('fade-out');
+                setTimeout(() => {
+                    dateGroup.remove();
+                    
+                    // Check if all scheduled chapters are gone
+                    const container = document.getElementById('scheduledChaptersContainer');
+                    if (container && container.children.length === 0) {
+                        document.getElementById('emptyScheduleState').style.display = 'block';
+                    }
+                }, 600);
+            }
+        }
+    }
+}
+// NOTE POPUP FUNCTIONS
+function showChapterNote(chapterId, noteText) {
+    const chapterName = getChapterNameById(chapterId);
+    
+    document.getElementById('notePopupTitle').textContent = '📝 Chapter Note';
+    document.getElementById('notePopupChapter').textContent = chapterName;
+    
+    const noteContent = document.getElementById('notePopupContent');
+    if (noteText && noteText.trim() !== '') {
+        noteContent.innerHTML = noteText;
+        noteContent.className = 'note-content';
+    } else {
+        noteContent.innerHTML = 'No notes available for this chapter';
+        noteContent.className = 'note-empty';
+    }
+    
+    document.getElementById('notePopupOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeNotePopup() {
+    document.getElementById('notePopupOverlay').classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Close popup on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+    const noteOverlay = document.getElementById('notePopupOverlay');
+    if (noteOverlay) {
+        noteOverlay.addEventListener('click', function(e) {
+            if (e.target.id === 'notePopupOverlay') {
+                closeNotePopup();
+            }
+        });
+    }
+});
+    </script>
+</body>
+</html>h
